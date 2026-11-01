@@ -1,0 +1,14 @@
+{
+  "name": "phone-scanner",
+  "version": "1.0.0",
+  "description": "Scanner d'annonces iPhone en temps réel — Vinted & Leboncoin",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "license": "MIT"
+}

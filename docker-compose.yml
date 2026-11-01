@@ -1,0 +1,14 @@
+services:
+  phone-scanner:
+    build: .
+    container_name: phone-scanner
+    restart: unless-stopped
+    ports:
+      - "3210:3210"
+    volumes:
+      - phone-scanner-data:/data
+    environment:
+      - SCAN_INTERVAL_SECONDS=120   # lu au premier démarrage, modifiable ensuite dans la base
+
+volumes:
+  phone-scanner-data:
