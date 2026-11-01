@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone Scanner — Annonces iPhone Vinted & Leboncoin</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">📱</span>
+    <div>
+      <h1>Phone Scanner</h1>
+      <p class="subtitle">Annonces iPhone Vinted et Leboncoin en temps réel</p>
+    </div>
+    <span class="live-badge" id="live-badge"><span class="dot"></span> En direct</span>
+  </div>
+  <div class="stats" id="stats">
+    <div class="stat"><span class="stat-label">Total</span><span class="stat-value" id="stat-total">–</span></div>
+    <div class="stat"><span class="stat-label">Nouvelles</span><span class="stat-value accent" id="stat-new">–</span></div>
+    <div class="stat"><span class="stat-label">Prix moyen</span><span class="stat-value" id="stat-avg">–</span></div>
+    <button class="icon-btn" id="btn-sound" title="Activer/désactiver le son">🔇</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Listes personnalisées</h2>
+        <button class="btn small" id="btn-new-list">+ Nouvelle liste</button>
+      </div>
+      <p class="hint">Modèles, fourchettes de prix et états par liste.</p>
+      <div id="list-chips" class="chips"></div>
+
+      <div id="list-editor" class="list-editor" hidden>
+        <input id="le-name" type="text" placeholder="Nom de la liste">
+        <h3>Modèles & prix max (€)</h3>
+        <div id="le-models" class="le-models"></div>
+        <h3>États</h3>
+        <div id="le-conditions" class="le-checks"></div>
+        <h3>Plateformes</h3>
+        <div id="le-platforms" class="le-checks"></div>
+        <div class="le-actions">
+          <button class="btn primary" id="le-save">Enregistrer</button>
+          <button class="btn" id="le-cancel">Annuler</button>
+          <button class="btn danger" id="le-delete" hidden>Supprimer</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Recherche</h2>
+      <input id="f-q" type="search" placeholder="Rechercher un modèle...">
+      <label class="field">
+        <span>Plateforme</span>
+        <select id="f-platform">
+          <option value="all">Toutes</option>
+          <option value="vinted">Vinted</option>
+          <option value="leboncoin">Leboncoin</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Statut</span>
+        <select id="f-condition"><option value="all">Toutes</option></select>
+      </label>
+      <label class="field">
+        <span>Tri</span>
+        <select id="f-sort">
+          <option value="recent">Plus récentes</option>
+          <option value="price_asc">Prix croissant</option>
+          <option value="price_desc">Prix décroissant</option>
+        </select>
+      </label>
+      <div class="range">
+        <label class="field"><span>Min</span><input id="f-min" type="number" min="0" placeholder="€"></label>
+        <label class="field"><span>Max</span><input id="f-max" type="number" min="0" placeholder="€"></label>
+      </div>
+      <div class="filter-actions">
+        <button class="btn" id="btn-reset">Réinitialiser</button>
+        <button class="btn primary" id="btn-refresh">Rafraîchir</button>
+      </div>
+      <label class="check-line"><input type="checkbox" id="f-new-only"> Nouvelles uniquement</label>
+      <p class="hint" id="last-scan"></p>
+    </section>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <span id="feed-count"></span>
+      <span id="feed-errors" class="errors"></span>
+    </div>
+    <div id="feed" class="feed"></div>
+    <div id="empty" class="empty" hidden>
+      <p>Aucune annonce pour ces filtres.</p>
+      <p class="hint">Le scan tourne en arrière-plan — les annonces arrivent toutes les quelques minutes.</p>
+    </div>
+  </main>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

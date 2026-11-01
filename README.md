@@ -29,7 +29,22 @@ est utilisé. Les requêtes sont espacées et jitterées pour rester raisonnable
 
 ## Lancer
 
-### Local
+### Version 100 % GitHub (recommandée)
+
+Le repo contient tout ce qu'il faut pour tourner **sans aucun serveur** :
+
+- **`.github/workflows/scan.yml`** : GitHub Actions scanne Vinted + Leboncoin toutes les
+  15 minutes et pousse les résultats dans `docs/data/listings.json` (dédoublonnage entre
+  les runs, historique des 400 dernières annonces).
+- **`docs/`** : dashboard statique publié sur **GitHub Pages** — il lit ce JSON, et tes
+  listes personnalisées sont stockées dans le `localStorage` de ton navigateur.
+- **`scanner.config.json`** : les modèles suivis, les prix max par modèle et les états
+  acceptés. Modifie ce fichier et commit pour changer ce que le bot scanne.
+
+> ⚠️ GitHub Pages doit être activé une fois : Settings → Pages → Source : `main` / `/docs`.
+> Le site est ensuite servi sur `https://<owner>.github.io/phone-scanner/`.
+
+### Local (temps réel, scan à la seconde)
 
 ```bash
 # prérequis : Node ≥ 22.5 et curl-impersonate (binaire curl_chrome131 accessible dans le PATH)

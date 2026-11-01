@@ -1,0 +1,12 @@
+{
+  "models": [
+    { "id": "iphone-11", "max_price": 60 },
+    { "id": "iphone-11-pro", "max_price": 70 },
+    { "id": "iphone-11-pro-max", "max_price": 70 },
+    { "id": "iphone-12", "max_price": null },
+    { "id": "iphone-13", "max_price": null },
+    { "id": "iphone-14", "max_price": null }
+  ],
+  "conditions": ["very_good", "good", "satisfactory"],
+  "platforms": ["vinted", "leboncoin"]
+}

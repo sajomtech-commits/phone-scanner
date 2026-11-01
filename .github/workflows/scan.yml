@@ -1,0 +1,46 @@
+name: scan
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # toutes les 15 minutes (UTC)
+  workflow_dispatch: {}       # bouton manuel
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Installer curl-impersonate (empreinte TLS Chrome pour Leboncoin)
+        run: |
+          curl -fsSL https://github.com/lexiforest/curl-impersonate/releases/download/v1.3.1/curl-impersonate-v1.3.1.x86_64-linux-gnu.tar.gz \
+            | tar xz -C /usr/local/bin curl-impersonate curl_chrome131
+          chmod +x /usr/local/bin/curl-impersonate /usr/local/bin/curl_chrome131
+
+      - name: Scanner Vinted + Leboncoin
+        run: node scripts/scan-export.js
+        env:
+          LBC_CURL: /usr/local/bin/curl_chrome131
+
+      - name: Commit & push des données
+        run: |
+          git config user.name "phone-scanner-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/listings.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement"
+          else
+            git commit -m "scan: $(date -u '+%Y-%m-%dT%H:%M:%SZ') — $(python3 -c "import json;d=json.load(open('docs/data/listings.json'));print(d['stats']['total'],'annonces,',d['stats']['nouvelles'],'nouvelles')")"
+            git push
+          fi
