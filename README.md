@@ -46,17 +46,12 @@ Variables d'environnement :
 | `LBC_CURL` | `curl_chrome131` | chemin du binaire curl-impersonate |
 | `SCAN_INTERVAL_SECONDS` | `120` | intervalle entre deux cycles de scan |
 
-### Docker
+### Docker (optionnel)
 
 ```bash
 docker compose up -d --build
 # → http://localhost:3210
 ```
-
-### Coolify
-
-Déployer le repo tel quel (build pack Dockerfile). Monte un volume sur `/data` pour
-persister la base SQLite.
 
 ## API
 
