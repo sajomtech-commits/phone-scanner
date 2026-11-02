@@ -88,6 +88,9 @@ for (const old of previous.listings || []) {
 }
 
 const listings = [...merged.values()]
+  // on ré-applique les filtres courants aux anciennes annonces : une annonce qui ne
+  // correspond plus (accessoire, catégorie) disparaît au lieu de rester pour toujours
+  .filter((l) => matches(l))
   .map((l) => ({
     ...l,
     is_new: (Date.now() - new Date(l.first_seen_at).getTime()) < NEW_WINDOW_H * 3600 * 1000,

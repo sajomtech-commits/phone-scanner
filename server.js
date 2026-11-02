@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import db, { getSetting, setSetting } from "./lib/db.js";
 import { startEngine, runScan, liveSearch } from "./lib/engine.js";
-import { MODELS, CONDITIONS, modelLabel, conditionLabel } from "./lib/models.js";
+import { MODELS, CONDITIONS, modelLabel, conditionLabel, isAccessory } from "./lib/models.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = path.join(__dirname, "public");
@@ -157,7 +157,7 @@ async function handleApi(req, res, url) {
     const limit = Math.min(parseInt(q.get("limit") || "60", 10) || 60, 200);
     const sql = `SELECT * FROM listings ${where.length ? "WHERE " + where.join(" AND ") : ""} ORDER BY ${orderBy} LIMIT ?`;
     const rows = db.prepare(sql).all(...args, limit);
-    sendJSON(res, 200, { items: rows.map(prettyListing) });
+    sendJSON(res, 200, { items: rows.filter((r) => !isAccessory(r.title)).map(prettyListing) });
     return true;
   }
 
