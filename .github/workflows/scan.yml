@@ -2,7 +2,7 @@ name: scan
 
 on:
   schedule:
-    - cron: "*/15 * * * *"   # toutes les 15 minutes (UTC)
+    - cron: "*/5 * * * *"    # toutes les 5 minutes (minimum autorisé par GitHub)
   workflow_dispatch: {}       # bouton manuel
 
 permissions:
